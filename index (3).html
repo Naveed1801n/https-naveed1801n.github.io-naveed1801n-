@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Naveedullah — Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+  :root{
+    --ink:#0d1117;
+    --panel:#141a23;
+    --bone:#eef1f4;
+    --bone-dim:#9aa4b2;
+    --crest:#5b9cf6;
+    --crest-dim:#2c4a78;
+    --gold:#e8b958;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--crest);color:var(--bone);}
+
+  a{color:inherit;text-decoration:none;}
+
+  .bg-grid{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      repeating-linear-gradient(180deg, transparent 0 119px, rgba(238,241,244,0.03) 119px 120px),
+      radial-gradient(ellipse at 50% -10%, rgba(91,156,246,0.10), transparent 55%),
+      var(--ink);
+  }
+
+  header{
+    padding:7vh 8vw 9vh;
+    position:relative;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+    margin-bottom:1.4em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;height:1px;
+    background:var(--gold);
+  }
+
+  .name-block{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    line-height:0.98;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  .name-block .accent{color:var(--crest);}
+
+  .squad-number{
+    font-family:'Archivo Black',sans-serif;
+    position:absolute;
+    top:4vh;
+    right:8vw;
+    font-size:clamp(3.2rem,8vw,6.4rem);
+    color:transparent;
+    -webkit-text-stroke:1.5px rgba(243,239,228,0.16);
+    user-select:none;
+    line-height:1;
+    letter-spacing:-0.02em;
+  }
+
+  .intro-row{
+    margin-top:3.2rem;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2.5rem;
+    max-width:900px;
+  }
+  @media (max-width:680px){ .intro-row{grid-template-columns:1fr;} }
+
+  .intro-row p{
+    color:var(--bone-dim);
+    font-size:0.98rem;
+    max-width:42ch;
+  }
+
+  .tag-row{
+    margin-top:2.6rem;
+    display:flex;
+    gap:0.6rem;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    border:1px solid rgba(243,239,228,0.22);
+    color:var(--bone-dim);
+    padding:0.4em 0.9em;
+    border-radius:999px;
+  }
+  .tag.crest{
+    border-color:var(--crest);
+    color:var(--bone);
+    background:rgba(224,56,59,0.12);
+  }
+
+  section.stack{
+    padding:6vh 8vw;
+    border-top:1px solid rgba(243,239,228,0.08);
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:2.4rem;
+  }
+  .section-head .num{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--crest-dim);
+    font-size:0.85rem;
+  }
+  .section-head h2{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(1.4rem,3vw,2rem);
+    letter-spacing:0.01em;
+  }
+
+  .tech-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid rgba(243,239,228,0.1);
+  }
+  @media (max-width:780px){ .tech-grid{grid-template-columns:1fr;} }
+
+  .tech-card{
+    padding:2.2rem 1.8rem;
+    border-right:1px solid rgba(243,239,228,0.1);
+    position:relative;
+    transition:background 0.25s ease;
+  }
+  .tech-card:last-child{border-right:none;}
+  .tech-grid .tech-card:not(:last-child){
+    border-bottom:none;
+  }
+  @media (max-width:780px){
+    .tech-card{border-right:none;border-bottom:1px solid rgba(243,239,228,0.1);}
+    .tech-card:last-child{border-bottom:none;}
+  }
+  .tech-card:hover{ background:rgba(224,56,59,0.06); }
+
+  .tech-jersey{
+    font-family:'Archivo Black',sans-serif;
+    font-size:0.7rem;
+    color:var(--gold);
+    letter-spacing:0.12em;
+    margin-bottom:0.8rem;
+  }
+  .tech-card h3{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:1.3rem;
+    margin-bottom:0.7rem;
+  }
+  .tech-card p{
+    color:var(--bone-dim);
+    font-size:0.92rem;
+  }
+
+  .hero-quote{
+    margin-top:1px;
+    padding:5vh 8vw;
+    border-top:1px solid rgba(243,239,228,0.08);
+    display:flex;
+    align-items:center;
+    gap:2rem;
+    flex-wrap:wrap;
+  }
+  .hero-quote .mark{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(2rem,5vw,3.2rem);
+    color:var(--crest);
+    line-height:1;
+  }
+  .hero-quote p{
+    font-size:0.95rem;
+    color:var(--bone-dim);
+    max-width:48ch;
+  }
+
+  footer{
+    padding:3.5vh 8vw;
+    border-top:1px solid rgba(243,239,228,0.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.74rem;
+    color:var(--bone-dim);
+    letter-spacing:0.04em;
+  }
+  footer .dot{ color:var(--crest); }
+
+  @media (prefers-reduced-motion: no-preference){
+    .name-block, .tech-card, .hero-quote{
+      animation:rise 0.7s ease both;
+    }
+    .tech-card:nth-child(2){animation-delay:0.08s;}
+    .tech-card:nth-child(3){animation-delay:0.16s;}
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---- Edit mode ---- */
+  .edit-toggle{
+    position:fixed;
+    bottom:5vh;
+    right:6vw;
+    z-index:5;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.74rem;
+    letter-spacing:0.05em;
+    background:var(--panel);
+    color:var(--bone);
+    border:1px solid rgba(238,241,244,0.18);
+    padding:0.7em 1.2em;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  }
+  .edit-toggle:hover{ border-color:var(--gold); color:var(--gold); }
+  body.editing [contenteditable="true"]{
+    outline:1px dashed rgba(232,185,88,0.55);
+    outline-offset:4px;
+    border-radius:4px;
+  }
+  body.editing [contenteditable="true"]:focus{
+    outline:1px solid var(--gold);
+    background:rgba(232,185,88,0.06);
+  }
+
+  /* ---- Education ---- */
+  .edu-list{
+    border-top:1px solid rgba(238,241,244,0.1);
+  }
+  .edu-row{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:1.5rem;
+    padding:1.8rem 0;
+    border-bottom:1px solid rgba(238,241,244,0.1);
+  }
+  @media (max-width:680px){ .edu-row{grid-template-columns:1fr;gap:0.4rem;} }
+  .edu-row .years{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.78rem;
+    color:var(--gold);
+  }
+  .edu-row h3{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:1.05rem;
+    margin-bottom:0.4rem;
+  }
+  .edu-row p{ color:var(--bone-dim); font-size:0.9rem; }
+
+  /* ---- Projects ---- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:rgba(238,241,244,0.1);
+    border:1px solid rgba(238,241,244,0.1);
+  }
+  @media (max-width:780px){ .project-grid{grid-template-columns:1fr;} }
+  .project-card{
+    background:var(--ink);
+    padding:2rem 1.8rem;
+  }
+  .project-card .ptag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem;
+    color:var(--crest);
+    letter-spacing:0.08em;
+    margin-bottom:0.7rem;
+  }
+  .project-card h3{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:1.15rem;
+    margin-bottom:0.6rem;
+  }
+  .project-card p{ color:var(--bone-dim); font-size:0.9rem; }
+
+
+  .edit-hint{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem;
+    color:var(--bone-dim);
+    letter-spacing:0.04em;
+    margin-top:-1.6rem;
+    margin-bottom:2.4rem;
+    opacity:0.7;
+  }
+
+  .timeline{
+    display:flex;
+    flex-direction:column;
+  }
+  .timeline-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:1.6rem;
+    padding:1.8rem 0;
+    border-bottom:1px solid rgba(243,239,228,0.08);
+  }
+  .timeline-item:last-child{border-bottom:none;}
+  @media (max-width:680px){
+    .timeline-item{grid-template-columns:1fr;gap:0.4rem;}
+  }
+  .timeline-period{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.78rem;
+    color:var(--gold);
+    letter-spacing:0.04em;
+    height:fit-content;
+  }
+  .timeline-body h3{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:1.15rem;
+    margin-bottom:0.4rem;
+    letter-spacing:0.01em;
+  }
+  .timeline-body .org{
+    font-size:0.85rem;
+    color:var(--crest);
+    margin-bottom:0.5rem;
+    display:block;
+  }
+  .timeline-body p.desc{
+    color:var(--bone-dim);
+    font-size:0.92rem;
+    max-width:60ch;
+  }
+
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.4rem;
+  }
+  @media (max-width:780px){ .project-grid{grid-template-columns:1fr;} }
+
+  .project-card{
+    border:1px solid rgba(243,239,228,0.12);
+    padding:1.8rem;
+    position:relative;
+    transition:border-color 0.25s ease, background 0.25s ease;
+  }
+  .project-card:hover{
+    border-color:rgba(224,56,59,0.4);
+    background:rgba(224,56,59,0.04);
+  }
+  .project-card .kit-number{
+    position:absolute;
+    top:1.2rem;
+    right:1.4rem;
+    font-family:'Archivo Black',sans-serif;
+    font-size:1.6rem;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(243,239,228,0.18);
+  }
+  .project-card h3{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:1.2rem;
+    margin-bottom:0.6rem;
+    padding-right:2.4rem;
+  }
+  .project-card .stack-line{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.7rem;
+    color:var(--gold);
+    letter-spacing:0.06em;
+    margin-bottom:0.8rem;
+    display:block;
+  }
+  .project-card p.desc{
+    color:var(--bone-dim);
+    font-size:0.9rem;
+    margin-bottom:1rem;
+  }
+  .project-card .proj-link{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.74rem;
+    color:var(--bone);
+    border-bottom:1px solid var(--crest);
+    padding-bottom:2px;
+    display:inline-block;
+  }
+
+  .add-row{
+    margin-top:1.6rem;
+    display:flex;
+    gap:0.8rem;
+  }
+  .add-btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--bone);
+    background:transparent;
+    border:1px dashed rgba(243,239,228,0.3);
+    padding:0.7em 1.2em;
+    border-radius:999px;
+    cursor:pointer;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .add-btn:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(238,241,244,0.1);
+    border:1px solid rgba(238,241,244,0.1);
+  }
+  @media (max-width:780px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact-card{
+    background:var(--ink);
+    padding:1.8rem 1.6rem;
+    display:flex;
+    align-items:flex-start;
+    gap:1rem;
+    transition:background 0.25s ease;
+  }
+  .contact-card:hover{ background:rgba(91,156,246,0.06); }
+  .contact-icon{
+    width:34px;height:34px;
+    flex-shrink:0;
+    border-radius:50%;
+    border:1px solid rgba(238,241,244,0.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.78rem;
+    color:var(--gold);
+  }
+  .contact-card .clabel{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    margin-bottom:0.3rem;
+  }
+  .contact-card a, .contact-card .cval{
+    font-size:0.92rem;
+    color:var(--bone);
+    word-break:break-word;
+    text-decoration:none;
+  }
+  .contact-card a:hover{ color:var(--crest); }
+
+  .navbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:1.1rem 8vw;
+    background:rgba(13,17,23,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(238,241,244,0.1);
+  }
+  .navbar .brand{
+    font-family:'Archivo Black',sans-serif;
+    font-size:0.95rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .navbar .brand .accent{ color:var(--crest); }
+  .nav-links{
+    display:flex;
+    gap:1.8rem;
+    list-style:none;
+  }
+  .nav-links a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.76rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    transition:color 0.2s ease;
+    position:relative;
+    padding-bottom:0.3rem;
+  }
+  .nav-links a:hover{ color:var(--bone); }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:0;
+    width:0%;height:1px;
+    background:var(--crest);
+    transition:width 0.2s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    gap:4px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0.4rem;
+  }
+  .nav-toggle span{
+    width:20px;height:2px;
+    background:var(--bone);
+  }
+  @media (max-width:700px){
+    .nav-links{
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      gap:0;
+      background:var(--ink);
+      border-bottom:1px solid rgba(238,241,244,0.1);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.25s ease;
+    }
+    .nav-links.open{ max-height:300px; }
+    .nav-links a{
+      padding:1rem 8vw;
+      width:100%;
+      border-bottom:1px solid rgba(238,241,244,0.06);
+    }
+    .nav-toggle{ display:flex; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav class="navbar">
+  <div class="brand">Naveed<span class="accent">ullah</span></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#technologies">Technologies</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="squad-number">IT</div>
+  <div class="eyebrow">B.Tech &middot; Information Technology</div>
+  <div class="name-block">Mohammed<br>Naveed<span class="accent">ullah</span></div>
+
+  <div class="intro-row">
+    <p>Undergraduate IT student, currently in Semester IV, with a disciplined and structured approach to learning. Coursework spans algorithms, computer networks, and full-stack web development.</p>
+    <p>Focused on writing clean code and building a steady, well-mannered approach to work — finishing what's started and doing it properly.</p>
+  </div>
+
+  <div class="tag-row">
+    <span class="tag crest">Open to opportunities</span>
+    <span class="tag">Disciplined</span>
+    <span class="tag">Full-stack learner</span>
+  </div>
+</header>
+
+<section class="stack" id="technologies">
+  <div class="section-head">
+    <span class="num">01</span>
+    <h2>Technologies</h2>
+  </div>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 01</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">Python</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Used for problem-solving, scripting, and coursework — including CS50 problem sets covering pattern generation, string parsing, and algorithmic logic.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 02</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">Java</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Core language for object-oriented programming coursework, covering data structures, algorithms, and standard library collections.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 03</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">JavaScript</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Used across both frontend and backend — React for UI work, Node/Express for APIs, and vanilla JS for browser-based tools like the QR code reader.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 04</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">C</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Studied through CS50 for low-level fundamentals — memory management, pointers, and data structures like hash tables and linked lists.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 05</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">React</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Used to build component-driven frontends, including a Vite-powered blog app frontend and a standalone components practice project.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-jersey">Stack &middot; 06</div>
+      <h3 contenteditable="true" data-placeholder="Technology name">Node.js &amp; Express</h3>
+      <p contenteditable="true" data-placeholder="Add a description...">Backend runtime and framework used to build REST CRUD APIs, paired with Mongoose for MongoDB data modeling.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stack" id="education">
+  <div class="section-head">
+    <span class="num">02</span>
+    <h2>Education</h2>
+  </div>
+  <div class="edit-hint">Click any field below to edit it directly.</div>
+
+  <div class="timeline" id="education-list">
+    <div class="timeline-item">
+      <div class="timeline-period" contenteditable="true" data-placeholder="2023 — 2027">2023 — 2027</div>
+      <div class="timeline-body">
+        <h3 contenteditable="true" data-placeholder="Degree name">B.Tech in Information Technology</h3>
+        <span class="org" contenteditable="true" data-placeholder="Institution name">Kakatiya Institute of Technology &amp; Science, Warangal</span>
+        <p class="desc" contenteditable="true" data-placeholder="Add a short description — coursework, achievements, GPA...">Currently in Semester IV. Coursework includes Computer Networks, Design and Analysis of Algorithms, and Environmental Science.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-row">
+    <button class="add-btn" onclick="addEducation()">+ Add education</button>
+  </div>
+</section>
+
+<section class="stack" id="projects">
+  <div class="section-head">
+    <span class="num">03</span>
+    <h2>Projects</h2>
+  </div>
+  <div class="edit-hint">Click any field below to edit it directly.</div>
+
+  <div class="project-grid" id="projects-list">
+    <div class="project-card">
+      <div class="kit-number">01</div>
+      <h3 contenteditable="true" data-placeholder="Project name">Full-Stack Blog App</h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack">Node.js &middot; Express &middot; MongoDB &middot; Mongoose &middot; React (Vite)</span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project...">A full-featured blog application with a REST CRUD API on the backend and a React (Vite) frontend, built as a hands-on MERN stack learning project.</p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name">github.com/Naveed1801n</span>
+    </div>
+    <div class="project-card">
+      <div class="kit-number">02</div>
+      <h3 contenteditable="true" data-placeholder="Project name">Personal Portfolio Site</h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack">HTML &middot; CSS</span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project...">A personal portfolio website built with plain HTML and CSS, styled with a code-editor aesthetic.</p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name">github.com/Naveed1801n</span>
+    </div>
+    <div class="project-card">
+      <div class="kit-number">03</div>
+      <h3 contenteditable="true" data-placeholder="Project name">React Components Practice</h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack">React &middot; JavaScript</span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project...">A practice project exploring reusable React components, props, and state management patterns.</p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name">github.com/Naveed1801n</span>
+    </div>
+    <div class="project-card">
+      <div class="kit-number">04</div>
+      <h3 contenteditable="true" data-placeholder="Project name">QR Code Reader</h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack">HTML &middot; JavaScript &middot; jsQR</span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project...">A browser-based, client-side QR code reader with no server uploads, with contextual routing for scanned URLs and map links.</p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name">github.com/Naveed1801n</span>
+    </div>
+    <div class="project-card">
+      <div class="kit-number">05</div>
+      <h3 contenteditable="true" data-placeholder="Project name">Merge Sort Visualizer</h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack">C &middot; Terminal UI &middot; CS50 Final Project</span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project...">A terminal-based visualizer that animates merge sort step by step. Built with cross-platform compatibility, a full README, and a presentation walkthrough.</p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name">github.com/Naveed1801n</span>
+    </div>
+  </div>
+
+  <div class="add-row">
+    <button class="add-btn" onclick="addProject()">+ Add project</button>
+  </div>
+</section>
+
+<section class="stack" id="contact">
+  <div class="section-head">
+    <span class="num">04</span>
+    <h2>Contact</h2>
+  </div>
+  <div class="edit-hint">Click any field below to edit it directly.</div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">@</div>
+      <div>
+        <div class="clabel">Email</div>
+        <a href="mailto:naveed1801n@gmail.com" contenteditable="true" data-placeholder="you@example.com">naveed1801n@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">GH</div>
+      <div>
+        <div class="clabel">GitHub</div>
+        <a href="https://github.com/Naveed1801n" target="_blank" rel="noopener" contenteditable="true" data-placeholder="github.com/username">github.com/Naveed1801n</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">in</div>
+      <div>
+        <div class="clabel">LinkedIn</div>
+        <a href="https://linkedin.com/in/naveed-mohammed-184865311" target="_blank" rel="noopener" contenteditable="true" data-placeholder="linkedin.com/in/username">linkedin.com/in/naveed-mohammed-184865311</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<button class="edit-toggle" id="editToggle">Enable editing</button>
+
+<footer>
+  <span>Copyright &middot; Naveedullah <span class="dot">&middot;</span> 2026</span>
+  <span>Warangal, Telangana</span>
+</footer>
+
+<script>
+  const STORAGE_KEY = 'naveedullah-portfolio-v1';
+
+  function addEducation(){
+    const list = document.getElementById('education-list');
+    const item = document.createElement('div');
+    item.className = 'timeline-item';
+    item.innerHTML = `
+      <div class="timeline-period" contenteditable="true" data-placeholder="20XX — 20XX"></div>
+      <div class="timeline-body">
+        <h3 contenteditable="true" data-placeholder="Degree name"></h3>
+        <span class="org" contenteditable="true" data-placeholder="Institution name"></span>
+        <p class="desc" contenteditable="true" data-placeholder="Add a short description — coursework, achievements, GPA..."></p>
+      </div>`;
+    list.appendChild(item);
+    item.querySelector('[contenteditable]').focus();
+    saveState();
+  }
+
+  function addProject(){
+    const list = document.getElementById('projects-list');
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    const n = list.children.length + 1;
+    card.innerHTML = `
+      <div class="kit-number">${String(n).padStart(2,'0')}</div>
+      <h3 contenteditable="true" data-placeholder="Project name"></h3>
+      <span class="stack-line" contenteditable="true" data-placeholder="Tech stack"></span>
+      <p class="desc" contenteditable="true" data-placeholder="Add a short description of the project..."></p>
+      <span class="proj-link" contenteditable="true" data-placeholder="Link or repo name"></span>`;
+    list.appendChild(card);
+    card.querySelector('[contenteditable]').focus();
+    saveState();
+  }
+
+  function saveState(){
+    try{
+      const data = {
+        education: document.getElementById('education-list').innerHTML,
+        projects: document.getElementById('projects-list').innerHTML
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }catch(e){ /* storage unavailable, edits stay in-page only */ }
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      if(data.education) document.getElementById('education-list').innerHTML = data.education;
+      if(data.projects) document.getElementById('projects-list').innerHTML = data.projects;
+    }catch(e){ /* ignore corrupt/missing data */ }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadState();
+    document.body.addEventListener('input', (e) => {
+      if(e.target.hasAttribute('contenteditable')) saveState();
+    });
+    document.body.addEventListener('blur', (e) => {
+      if(e.target.hasAttribute && e.target.hasAttribute('contenteditable')) saveState();
+    }, true);
+  });
+</script>
+
+<script>
+  const btn = document.getElementById('editToggle');
+  let editing = false;
+  btn.addEventListener('click', () => {
+    editing = !editing;
+    document.body.classList.toggle('editing', editing);
+    btn.textContent = editing ? 'Done editing' : 'Enable editing';
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+</script>
+</body>
+</html>
